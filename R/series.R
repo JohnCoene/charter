@@ -236,7 +236,6 @@ c_bubble.charter <- function(c, serie, size = NULL, ..., label = NULL){
 #' Add a scatter chart.
 #' 
 #' @inheritParams c_line
-#' @param size The bare name of the variable defining the size of the points.
 #' 
 #' @examples 
 #' mtcars %>% 

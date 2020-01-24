@@ -14,8 +14,6 @@ c_scatter(c, serie, ..., label = NULL)
 \item{...}{Any other options.}
 
 \item{label}{Label of the serie, if \code{NULL} then the \code{serie} is used.}
-
-\item{size}{The bare name of the variable defining the size of the points.}
 }
 \description{
 Add a scatter chart.

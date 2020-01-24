@@ -19,6 +19,12 @@ c_line(c, serie, ..., label = NULL)
 Add a line chart.
 }
 \examples{
+# line
+cars \%>\% 
+ c_hart(dist) \%>\% 
+ c_line(speed, fill = FALSE)
+
+# area
 cars \%>\% 
  c_hart(dist) \%>\% 
  c_line(speed)
