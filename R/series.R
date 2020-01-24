@@ -3,11 +3,17 @@
 #' Add a line chart.
 #' 
 #' @param c An object of class \code{charter} as returned by \code{\link{c_hart}}.
-#' @param serie The bare serie to plot on the y axis.
+#' @param serie The bare name of the serie to plot on the y axis.
 #' @param ... Any other options.
 #' @param label Label of the serie, if \code{NULL} then the \code{serie} is used.
 #' 
 #' @examples 
+#' # line
+#' cars %>% 
+#'  c_hart(dist) %>% 
+#'  c_line(speed, fill = FALSE)
+#' 
+#' # area
 #' cars %>% 
 #'  c_hart(dist) %>% 
 #'  c_line(speed)
@@ -182,6 +188,82 @@ c_doughnut.charter <- function(c, serie, ..., label = NULL){
   )
 
   c$x$opts$type <- "doughnut"
+
+  c$x$opts$data$datasets <- append(c$x$opts$data$datasets, list(serie))
+  return(c)
+}
+
+#' Bubble
+#' 
+#' Add a bubble chart.
+#' 
+#' @inheritParams c_line
+#' @param size The bare name of the variable defining the size of the points.
+#' 
+#' @examples 
+#' mtcars %>% 
+#'  c_hart(mpg) %>% 
+#'  c_bubble(qsec, wt)
+#' 
+#' @export
+c_bubble <- function(c, serie, size = NULL, ..., label = NULL) UseMethod("c_bubble")
+
+#' @export 
+#' @method c_bubble charter
+c_bubble.charter <- function(c, serie, size = NULL, ..., label = NULL){
+  # check that serie is passed
+  assert_that(not_missing(serie))
+
+  serie_enquo <- enquo(serie)
+  size_enquo <- enquo(size)
+
+  serie <- .make_scatter_serie(
+    c$x$data, 
+    c$x$data$labels,
+    serie_enquo,
+    size_enquo, 
+    ..., 
+    label = label,
+    type = "bubble"
+  )
+
+  c$x$opts$data$datasets <- append(c$x$opts$data$datasets, list(serie))
+  return(c)
+}
+
+#' Scatter
+#' 
+#' Add a scatter chart.
+#' 
+#' @inheritParams c_line
+#' @param size The bare name of the variable defining the size of the points.
+#' 
+#' @examples 
+#' mtcars %>% 
+#'  c_hart(mpg) %>% 
+#'  c_scatter(qsec, wt)
+#' 
+#' @export
+c_scatter <- function(c, serie, ..., label = NULL) UseMethod("c_scatter")
+
+#' @export 
+#' @method c_scatter charter
+c_scatter.charter <- function(c, serie, ..., label = NULL){
+  # check that serie is passed
+  assert_that(not_missing(serie))
+
+  serie_enquo <- enquo(serie)
+  size_enquo <- NULL
+
+  serie <- .make_scatter_serie(
+    c$x$data, 
+    c$x$data$labels,
+    serie_enquo,
+    size_enquo, 
+    ..., 
+    label = label,
+    type = "scatter"
+  )
 
   c$x$opts$data$datasets <- append(c$x$opts$data$datasets, list(serie))
   return(c)

@@ -12,12 +12,13 @@
 #'
 #' @import htmlwidgets
 #' @import assertthat
-#' @importFrom dplyr enquo pull
+#' @importFrom dplyr enquo pull select
 #'
 #' @export
 c_hart <- function(data, x, ..., width = NULL, height = NULL, elementId = NULL) {
 
   assert_that(has_data(data))
+  row.names(data) <- NULL
 
   if(!missing(x)){
     x_enquo <- enquo(x)

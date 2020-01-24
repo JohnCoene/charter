@@ -9,7 +9,7 @@ c_bar(c, serie, ..., label = NULL)
 \arguments{
 \item{c}{An object of class \code{charter} as returned by \code{\link{c_hart}}.}
 
-\item{serie}{The bare serie to plot on the y axis.}
+\item{serie}{The bare name of the serie to plot on the y axis.}
 
 \item{...}{Any other options.}
 
