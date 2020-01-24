@@ -20,7 +20,8 @@ c_title(
 \arguments{
 \item{c}{An object of class \code{charter} as returned by \code{\link{c_hart}}.}
 
-\item{title}{Title to display, if \code{list} text is rendered on multiple lines.}
+\item{title}{Title to display, if a \code{list} or a \code{vector} of
+length > 1 text is rendered on multiple lines.}
 
 \item{position}{The position of the title.}
 
@@ -40,4 +41,13 @@ c_title(
 }
 \description{
 Add a title to the chart.
+}
+\examples{
+cars \%>\% 
+ c_hart(speed) \%>\% 
+ c_line(dist) \%>\% 
+ c_title(
+   c("Title", "Subtitle")
+ )
+
 }

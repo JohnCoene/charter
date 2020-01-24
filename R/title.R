@@ -3,7 +3,8 @@
 #' Add a title to the chart.
 #' 
 #' @inheritParams c_line
-#' @param title Title to display, if \code{list} text is rendered on multiple lines.
+#' @param title Title to display, if a \code{list} or a \code{vector} of 
+#' length > 1 text is rendered on multiple lines.
 #' @param font_size Font size of text in pixels.
 #' @param font_style Font style.
 #' @param font_family Font family to use.
@@ -12,6 +13,14 @@
 #' @param display Whether to display the title.
 #' @param padding Padding, in pixels, between rows of boxes.
 #' @param line_height Height of an individual line of text.
+#' 
+#' @examples 
+#' cars %>% 
+#'  c_hart(speed) %>% 
+#'  c_line(dist) %>% 
+#'  c_title(
+#'    c("Title", "Subtitle")
+#'  )
 #' 
 #' @export
 c_title <- function(c, title = "", position = c("top", "left", "bottom", "right"),
