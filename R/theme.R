@@ -26,8 +26,8 @@
 #' 
 #' @export
 c_theme <- function(c, point_radius = 3, point_style = "circle", point_rotation = 0, 
-  point_bg_color = "rgba(0, 0, 0, 0.1)", point_border_color = "rgba(0, 0, 0, 0.1)",
-  point_border_width = 1, point_hit_radius = 1, point_hover_radius = 4, point_hover_width = 1,
+  point_color = "rgba(0, 0, 0, 0.1)", point_border_color = "rgba(0, 0, 0, 0.1)",
+  point_border_width = 1, point_hit_radius = 1, point_hover_radius = 4, point_hover_border_width = 1,
   line_tension = .4, line_color = "rgba(0, 0, 0, 0.1)", line_border_width = 3, 
   line_border_color = "rgba(0, 0, 0, 0.1)", line_border_cap_style = "butt", 
   line_border_dash = NULL, line_border_dash_offset = 0, line_border_join_style = "miter",
@@ -42,8 +42,8 @@ c_theme <- function(c, point_radius = 3, point_style = "circle", point_rotation 
 #' @export 
 #' @method c_theme charter
 c_theme.charter <- function(c, point_radius = 3, point_style = "circle", point_rotation = 0, 
-  point_bg_color = "rgba(0, 0, 0, 0.1)", point_border_color = "rgba(0, 0, 0, 0.1)",
-  point_border_width = 1, point_hit_radius = 1, point_hover_radius = 4, point_hover_width = 1,
+  point_color = "rgba(0, 0, 0, 0.1)", point_border_color = "rgba(0, 0, 0, 0.1)",
+  point_border_width = 1, point_hit_radius = 1, point_hover_radius = 4, point_hover_border_width = 1,
   line_tension = .4, line_color = "rgba(0, 0, 0, 0.1)", line_border_width = 3, 
   line_border_color = "rgba(0, 0, 0, 0.1)", line_border_cap_style = "butt", 
   line_border_dash = NULL, line_border_dash_offset = 0, line_border_join_style = "miter",
@@ -53,6 +53,20 @@ c_theme.charter <- function(c, point_radius = 3, point_style = "circle", point_r
   arc_angle = NULL, arc_background_color = "rgba(0, 0, 0, 0.1)", arc_border_align = "center",
   arc_border_color = "#fff", arc_border_width = 2){
 
-  opts <- list()
+  point <- list(
+    radius = point_radius, 
+    pointStyle = point_style, 
+    rotation = point_rotation, 
+    backgroundColor = point_bg_color, 
+    borderColor = point_border_color,
+    borderWidth = point_border_width, 
+    hitRadius = point_hit_radius, 
+    hoverRadius = point_hover_radius, 
+    hoverBorderWidth = point_hover_border_width
+  )
+
+  opts <- list(
+    point = point
+  )
 
 }
