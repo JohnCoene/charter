@@ -9,7 +9,7 @@ c_legend_label(
   box_width = 40,
   font_size = 12,
   font_style = "normal",
-  font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+  font_family = helvetica(),
   padding = 10,
   use_point_style = FALSE
 )

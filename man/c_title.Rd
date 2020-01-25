@@ -9,7 +9,7 @@ c_title(
   title = "",
   position = c("top", "left", "bottom", "right"),
   font_size = 12,
-  font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+  font_family = helvetica(),
   font_color = "#666",
   font_style = "bold",
   padding = 10,

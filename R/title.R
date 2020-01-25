@@ -24,8 +24,8 @@
 #' 
 #' @export
 c_title <- function(c, title = "", position = c("top", "left", "bottom", "right"),
-  font_size = 12, font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-  font_color = "#666", font_style = "bold", padding = 10, line_height = 1.2, display = TRUE){
+  font_size = 12, font_family = helvetica(), font_color = "#666", font_style = "bold", 
+  padding = 10, line_height = 1.2, display = TRUE){
   
   UseMethod("c_title")
 }

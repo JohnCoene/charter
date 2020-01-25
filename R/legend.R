@@ -65,8 +65,7 @@ c_legend.charter <- function(c, display = TRUE, position = c("top", "left", "bot
 #' 
 #' @export 
 c_legend_label <- function(c, box_width = 40, font_size = 12, font_style = "normal",
-  font_family = "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif", padding = 10,
-  use_point_style = FALSE){
+  font_family = helvetica(), padding = 10, use_point_style = FALSE){
 
   UseMethod("c_legend_label")
 }
