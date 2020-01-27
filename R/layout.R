@@ -2,7 +2,7 @@
 #' 
 #' Adjust the layout of the graph.
 #' 
-#' @inheritParams c_line
+#' @inheritParams series
 #' @param left,right,top,bottom Values, in pixels, defining margin around chart.
 #' 
 #' @examples 

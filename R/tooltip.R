@@ -2,7 +2,7 @@
 #' 
 #' Customise the tooltip.
 #' 
-#' @inheritParams c_line
+#' @inheritParams series
 #' @param enabled Whether to enable tooltips.
 #' @param mode Defines which elements appear on the tooltip.
 #' @param intersect If code{TRUE}, the tooltip mode applies only when the 

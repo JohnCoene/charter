@@ -2,7 +2,7 @@
 #' 
 #' Define chart theme.
 #' 
-#' @inheritParams c_line
+#' @inheritParams series
 #' @param point_radius Point radius.
 #' @param point_style Point style, see section below.
 #' @param point_rotation Point rotation in degrees.

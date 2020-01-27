@@ -2,7 +2,7 @@
 #' 
 #' Customise the legend.
 #' 
-#' @inheritParams c_line
+#' @inheritParams series
 #' @param display Whether to show the legend.
 #' @param position The position of the legend.
 #' @param align Alignment of the legend.
@@ -46,7 +46,7 @@ c_legend.charter <- function(c, display = TRUE, position = c("top", "left", "bot
 #' 
 #' Customise the legend labels.
 #' 
-#' @inheritParams c_line
+#' @inheritParams series
 #' @param box_width Width of colored box in pixels.
 #' @param font_size Font size of text in pixels.
 #' @param font_style Font style.

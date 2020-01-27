@@ -2,7 +2,7 @@
 #' 
 #' Add a title to the chart.
 #' 
-#' @inheritParams c_line
+#' @inheritParams series
 #' @param title Title to display, if a \code{list} or a \code{vector} of 
 #' length > 1 text is rendered on multiple lines.
 #' @param font_size Font size of text in pixels.
