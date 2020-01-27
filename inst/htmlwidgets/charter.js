@@ -23,7 +23,8 @@ HTMLWidgets.widget({
 
       resize: function(width, height) {
 
-        chart.resize();
+        if(chart)
+          chart.resize();
 
       }
 

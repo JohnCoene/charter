@@ -11,7 +11,8 @@ make_serie(
   inherit_caes = TRUE,
   type = "line",
   label = NULL,
-  ...
+  ...,
+  valid_caes = ALL_CAES
 )
 }
 \arguments{

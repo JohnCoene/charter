@@ -4,7 +4,7 @@
 \alias{listize}
 \title{Listize}
 \usage{
-listize(data)
+listize(data, valid_caes)
 }
 \arguments{
 \item{data}{A data.frame.}

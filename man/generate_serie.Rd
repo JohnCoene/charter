@@ -4,7 +4,15 @@
 \alias{generate_serie}
 \title{Generate serie}
 \usage{
-generate_serie(c, data, label, inherit_caes, type = "line", ...)
+generate_serie(
+  c,
+  data,
+  label,
+  inherit_caes,
+  type = "line",
+  ...,
+  valid_caes = ALL_CAES
+)
 }
 \arguments{
 \item{c}{charter object.}

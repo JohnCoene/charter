@@ -10,6 +10,8 @@
 \alias{c_pie}
 \alias{c_doughnut}
 \alias{c_polar_area}
+\alias{c_boxplot}
+\alias{c_violin}
 \title{Serie}
 \usage{
 c_line(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
@@ -27,6 +29,24 @@ c_pie(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 c_doughnut(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 
 c_polar_area(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
+
+c_boxplot(
+  c,
+  ...,
+  label = NULL,
+  inherit_caes = TRUE,
+  data = NULL,
+  orient = c("vertical", "horizontal")
+)
+
+c_violin(
+  c,
+  ...,
+  label = NULL,
+  inherit_caes = TRUE,
+  data = NULL,
+  orient = c("vertical", "horizontal")
+)
 }
 \arguments{
 \item{c}{An object of class \code{charter} as returned by \code{\link{c_hart}}.}
@@ -38,6 +58,8 @@ c_polar_area(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 \item{inherit_caes}{Whether to inherit \code{\link{caes}} from \code{\link{c_hart}}.}
 
 \item{data}{If \code{NULL} inherits data from \code{\link{c_hart}}.}
+
+\item{orient}{Orientation of box and violin plots.}
 }
 \description{
 Add a series to chart.
@@ -53,5 +75,9 @@ mtcars \%>\%
 mtcars \%>\% 
  c_hart(caes(qsec, mpg, group = cyl)) \%>\% 
  c_bubble(caes(size = drat))
+
+mtcars \%>\% 
+ c_hart(caes(mpg, qsec, group = cyl)) \%>\% 
+ c_violin()
 
 }

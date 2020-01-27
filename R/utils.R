@@ -2,6 +2,8 @@ globalVariables(
   c("group")
 )
 
+ALL_CAES <- c("x", "y", "r", "group")
+
 #' Preprocess
 #' 
 #' Preprocess data.frame.
@@ -32,7 +34,7 @@ process_data <- function(data){
 #' 
 #' @keywords internal
 make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE, 
-  type = "line", label = NULL, ...){
+  type = "line", label = NULL, ..., valid_caes = ALL_CAES){
 
   # process aes
   caes <- get_caes(...)
@@ -58,26 +60,16 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
   else
     data <- list(data)
 
-  purrr::map(data, function(group_data, label, opts, N){
-
-    # add based on y if only one group
-    label <- get_label(group_data, label, caes, N)
-
-    # remove uneeded group
-    group_data <- listize(group_data)
-
-    # basic serie
-    serie <- list(
-      type = type,
-      label = label,
-      data = group_data
-    )
-
-    # append options
-    serie <- append(serie, opts)
-
-    return(serie)
-  }, label = label, opts = opts, N = length(data))
+  purrr::map(
+    data, 
+    group_to_serie, 
+    label = label, 
+    opts = opts, 
+    N = length(data), 
+    type = type,
+    caes = caes,
+    valid_caes = valid_caes
+  )
 }
 
 #' Listize
@@ -87,11 +79,38 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
 #' @param data A data.frame.
 #' 
 #' @keywords internal
-listize <- function(data){
+listize <- function(data, valid_caes){
   if("group" %in% names(data))
-    data <- select(data, -group)
-  
-  apply(data, 1, as.list)
+    data <- select(data, -group) 
+
+  data <- suppressWarnings(
+    select(data, dplyr::one_of(valid_caes))
+  )
+
+  if(ncol(data) == 1)
+    data %>% unlist() %>% unname() %>% list()
+  else
+    apply(data, 1, as.list)
+}
+
+group_to_serie <- function(group_data, label, opts, N, type, caes, valid_caes = ALL_CAES){
+  # add based on y if only one group
+  label <- get_label(group_data, label, caes, N)
+
+  # remove uneeded group
+  group_data <- listize(group_data, valid_caes)
+
+  # basic serie
+  serie <- list(
+    type = type,
+    label = label,
+    data = group_data
+  )
+
+  # append options
+  serie <- append(serie, opts)
+
+  return(serie)
 }
 
 #' Get Label
@@ -129,7 +148,7 @@ get_label <- function(data, label, caes, N){
 #' @param ... Additional aesthetics and options.
 #' 
 #' @keywords internal
-generate_serie <- function(c, data, label, inherit_caes, type = "line", ...){
+generate_serie <- function(c, data, label, inherit_caes, type = "line", ..., valid_caes = ALL_CAES){
   
   serie <- make_serie(
     c$x$main_caes, 
@@ -138,7 +157,8 @@ generate_serie <- function(c, data, label, inherit_caes, type = "line", ...){
     inherit_caes = inherit_caes, 
     type = type, 
     label = label, 
-    ...
+    ...,
+    valid_caes = valid_caes
   )
 
   c$x$opts$data$labels <- handle_labels(
@@ -180,7 +200,8 @@ handle_labels <- function(labels, main_caes, main_data, data, inherit_caes = TRU
   # check that data present
   assert_that(has_data(data))
 
-  data %>% 
-    pull(!!caes$x) %>% 
-    unique()
+  if(!is.null(caes$x))
+    data %>% 
+      pull(!!caes$x) %>% 
+      unique()
 }

@@ -63,7 +63,7 @@ charter_html <- function(id, class, ...){
 
 .build_chart <- function(c){
   c$x$main_data <- NULL
-  c$x$main_aes <- NULL
+  c$x$main_caes <- NULL
   return(c)
 }
 
