@@ -19,24 +19,90 @@ c_theme(
   line_color = "rgba(0, 0, 0, 0.1)",
   line_border_width = 3,
   line_border_color = "rgba(0, 0, 0, 0.1)",
-  line_border_cap_style = "butt",
+  line_border_cap_style = c("butt", "round", "square"),
   line_border_dash = NULL,
   line_border_dash_offset = 0,
-  line_border_join_style = "miter",
+  line_border_join_style = c("miter", "bevel", "round"),
   line_cap_bezier = TRUE,
   line_cubic_interpolation = c("default", "monotone"),
-  line_fill = true,
+  line_fill = TRUE,
   line_stepped = FALSE,
-  rect_bg_color = "rgba(0, 0, 0, 0.1)",
+  rect_color = "rgba(0, 0, 0, 0.1)",
   rect_border_width = 0,
   rect_border_color = "rgba(0, 0, 0, 0.1)",
   rect_border_skip = c("bottom", "left", "top", "right"),
   arc_angle = NULL,
-  arc_background_color = "rgba(0, 0, 0, 0.1)",
+  arc_color = "rgba(0, 0, 0, 0.1)",
   arc_border_align = "center",
   arc_border_color = "#fff",
   arc_border_width = 2
 )
+}
+\arguments{
+\item{c}{An object of class \code{charter} as returned by \code{\link{c_hart}}.}
+
+\item{point_radius}{Point radius.}
+
+\item{point_style}{Point style, see section below.}
+
+\item{point_rotation}{Point rotation in degrees.}
+
+\item{point_color}{Point fill color.}
+
+\item{point_border_color}{Point border color.}
+
+\item{point_border_width}{Point stroke width.}
+
+\item{point_hit_radius}{Extra radius added to point radius for hit detection.}
+
+\item{point_hover_radius}{Point radius when hovered.}
+
+\item{point_hover_border_width}{Stroke width when hovered.}
+
+\item{line_tension}{Bézier curve tension (\code{0} for no Bézier curves).}
+
+\item{line_color}{Line fill color.}
+
+\item{line_border_width}{Line border width.}
+
+\item{line_border_color}{Line stroke color.}
+
+\item{line_border_cap_style}{Line cap style}
+
+\item{line_border_dash}{Line dash, see \href{https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash}{MDN}.}
+
+\item{line_border_dash_offset}{Line dash offset value.}
+
+\item{line_border_join_style}{Line join style.}
+
+\item{line_cap_bezier}{Set to \code{TRUE} to keep Bézier control inside the
+chart, \code{FALSE} for no restriction.}
+
+\item{line_cubic_interpolation}{Interpolation mode to apply.}
+
+\item{line_fill}{How to fill the area under the line.}
+
+\item{line_stepped}{Set to \code{TRUE} to show the line as a stepped
+line (\code{tension} will be ignored).}
+
+\item{rect_color}{Bar fill color.}
+
+\item{rect_border_width}{Bar stroke width.}
+
+\item{rect_border_color}{Bar stroke color.}
+
+\item{rect_border_skip}{Border to exclude.}
+
+\item{arc_angle}{A numeric defining arc angle to cover, defaults to
+\eqn{circumference / (arc count)}.}
+
+\item{arc_color}{Arc fill color.}
+
+\item{arc_border_align}{Arc stroke alignment.}
+
+\item{arc_border_color}{Arc border color.}
+
+\item{arc_border_width}{Arc border width.}
 }
 \description{
 Define chart theme.
@@ -60,10 +126,25 @@ Define chart theme.
 \section{Stepped Line}{
 
 \itemize{
-\item{\code{FALSE}, \code{TRUE}}
-\item{\code{before}}
-\item{\code{after}}
-\item{\code{middle}}
+\item{A boolean \code{FALSE}, \code{TRUE}}
+\item{A character string, \code{before}, \code{after}, \code{middle}}
 }
 }
 
+\section{Line Fill Modes}{
+
+\itemize{
+\item{An aboslute index as integer e.g.: \code{1}.}
+\item{A relative index as string e.g.: \code{-1}}
+\item{Boundary one of \code{start}, \code{end}, or \code{origin}}
+\item{Logical, \code{TRUE} or \code{FALSE}}
+}
+}
+
+\examples{
+cars \%>\% 
+ c_hart(speed) \%>\% 
+ c_scatter(dist) \%>\% 
+ c_theme(point_radius = 8)
+
+}

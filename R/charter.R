@@ -14,6 +14,7 @@
 #' @import assertthat
 #' @importFrom dplyr enquo pull select
 #'
+#' @name c_hart 
 #' @export
 c_hart <- function(data, x, ..., width = NULL, height = NULL, elementId = NULL) {
 
@@ -49,6 +50,10 @@ c_hart <- function(data, x, ..., width = NULL, height = NULL, elementId = NULL) 
     elementId = elementId
   )
 }
+
+#' @rdname c_hart
+#' @export
+chart <- c_hart
 
 charter_html <- function(id, class, ...){
   shiny::tags$div(

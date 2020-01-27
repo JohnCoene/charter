@@ -2,9 +2,12 @@
 % Please edit documentation in R/charter.R
 \name{c_hart}
 \alias{c_hart}
+\alias{chart}
 \title{Initialise}
 \usage{
 c_hart(data, x, ..., width = NULL, height = NULL, elementId = NULL)
+
+chart(data, x, ..., width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{Data.frame holding data to plot.}
