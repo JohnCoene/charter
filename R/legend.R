@@ -12,9 +12,8 @@
 #' @param rtl Renders legend from right to left.
 #' 
 #' @examples 
-#' cars %>% 
-#'  c_hart(speed) %>% 
-#'  c_line(dist) %>% 
+#' c_hart(cars, caes(speed, dist)) %>% 
+#'  c_line() %>% 
 #'  c_legend(position = "left")
 #' 
 #' @export 
@@ -57,9 +56,8 @@ c_legend.charter <- function(c, display = TRUE, position = c("top", "left", "bot
 #' style (size is based on the mimimum value between boxWidth and fontSize).
 #' 
 #' @examples 
-#' cars %>% 
-#'  c_hart(speed) %>% 
-#'  c_line(dist) %>% 
+#' c_hart(cars, caes(speed, dist)) %>% 
+#'  c_line() %>% 
 #'  c_legend(position = "bottom") %>% 
 #'  c_legend_label(box_width = 100)
 #' 

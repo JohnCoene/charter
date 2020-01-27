@@ -5,16 +5,14 @@
 \alias{chart}
 \title{Initialise}
 \usage{
-c_hart(data, x, ..., width = NULL, height = NULL, elementId = NULL)
+c_hart(data = NULL, ..., width = NULL, height = NULL, elementId = NULL)
 
-chart(data, x, ..., width = NULL, height = NULL, elementId = NULL)
+chart(data = NULL, ..., width = NULL, height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{Data.frame holding data to plot.}
 
-\item{x}{The bare column containing x values.}
-
-\item{...}{Any other options.}
+\item{...}{Chart aesthetics, see \code{\link{caes}}.}
 
 \item{width, height}{Must be a valid CSS unit (like \code{'100\%'},
 \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a

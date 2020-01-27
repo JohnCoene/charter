@@ -122,9 +122,8 @@ items are in the tooltip.}
 Customise the tooltip.
 }
 \examples{
-cars \%>\% 
- c_hart(speed) \%>\% 
- c_scatter(dist) \%>\% 
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line() \%>\% 
  c_tooltip(FALSE)
 
 }

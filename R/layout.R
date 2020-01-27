@@ -6,9 +6,8 @@
 #' @param left,right,top,bottom Values, in pixels, defining margin around chart.
 #' 
 #' @examples 
-#' cars %>% 
-#'  c_hart(speed) %>% 
-#'  c_scatter(dist) %>% 
+#' c_hart(cars, caes(speed, dist)) %>% 
+#'  c_line() %>% 
 #'  c_layout(
 #'    top = 20, right = 20, 
 #'    left = 20, bottom = 20

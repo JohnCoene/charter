@@ -34,9 +34,8 @@ style (size is based on the mimimum value between boxWidth and fontSize).}
 Customise the legend labels.
 }
 \examples{
-cars \%>\% 
- c_hart(speed) \%>\% 
- c_line(dist) \%>\% 
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line() \%>\% 
  c_legend(position = "bottom") \%>\% 
  c_legend_label(box_width = 100)
 

@@ -43,9 +43,8 @@ length > 1 text is rendered on multiple lines.}
 Add a title to the chart.
 }
 \examples{
-cars \%>\% 
- c_hart(speed) \%>\% 
- c_line(dist) \%>\% 
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line() \%>\% 
  c_title(
    c("Title", "Subtitle")
  )

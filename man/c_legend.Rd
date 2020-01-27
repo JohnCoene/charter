@@ -34,9 +34,8 @@ full width of the canvas (pushing down other boxes).}
 Customise the legend.
 }
 \examples{
-cars \%>\% 
- c_hart(speed) \%>\% 
- c_line(dist) \%>\% 
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line() \%>\% 
  c_legend(position = "left")
 
 }

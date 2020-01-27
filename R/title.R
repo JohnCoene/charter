@@ -15,9 +15,8 @@
 #' @param line_height Height of an individual line of text.
 #' 
 #' @examples 
-#' cars %>% 
-#'  c_hart(speed) %>% 
-#'  c_line(dist) %>% 
+#' c_hart(cars, caes(speed, dist)) %>% 
+#'  c_line() %>% 
 #'  c_title(
 #'    c("Title", "Subtitle")
 #'  )

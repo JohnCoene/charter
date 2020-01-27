@@ -4,29 +4,24 @@
 \alias{c_line}
 \title{Line}
 \usage{
-c_line(c, serie, ..., label = NULL)
+c_line(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 }
 \arguments{
 \item{c}{An object of class \code{charter} as returned by \code{\link{c_hart}}.}
 
-\item{serie}{The bare name of the serie to plot on the y axis.}
-
 \item{...}{Any other options.}
 
 \item{label}{Label of the serie, if \code{NULL} then the \code{serie} is used.}
+
+\item{inherit_caes}{Whether to inherit \code{\link{caes}} from \code{\link{c_hart}}.}
+
+\item{data}{If \code{NULL} inherits data from \code{\link{c_hart}}.}
 }
 \description{
 Add a line chart.
 }
 \examples{
-# line
-cars \%>\% 
- c_hart(dist) \%>\% 
- c_line(speed, fill = FALSE)
-
-# area
-cars \%>\% 
- c_hart(dist) \%>\% 
- c_line(speed)
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line()
 
 }

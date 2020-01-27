@@ -1,21 +1,36 @@
-not_missing <- function(x) {
-  !missing(x)
+is_data_frame <- function(x){
+  inherits(x, "data.frame")
 }
 
-on_failure(not_missing) <- function(call, env) {
+on_failure(is_data_frame) <- function(call, env) {
   paste0(
-    "Missing `",
-    crayon::red(deparse(call$x)),
-    "`."
+    "`", crayon::red(deparse(call$x)), 
+    "` must be a data.frame"
   )
 }
 
-has_data <- function(x){
-  if(missing(x))
-    return(FALSE)
+has_data <- function(x) {
   !is.null(x)
 }
 
 on_failure(has_data) <- function(call, env) {
-  "Missing data."
+  paste0(
+    "Missing `",
+    crayon::red("data"),
+    "`."
+  )
+}
+
+has_caes <- function(x) {
+  length(x) > 0
+}
+
+on_failure(has_caes) <- function(call, env) {
+  paste0(
+    "Missing ",
+    crayon::red("aesthetics"),
+    ", see `", 
+    crayon::cyan("caes")
+    ,"`."
+  )
 }

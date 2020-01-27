@@ -3,8 +3,7 @@
 #' Initialise a chart.js chart
 #' 
 #' @param data Data.frame holding data to plot.
-#' @param x The bare column containing x values.
-#' @param ... Any other options.
+#' @param ... Chart aesthetics, see \code{\link{caes}}.
 #' @param width,height Must be a valid CSS unit (like \code{'100\%'},
 #'   \code{'400px'}, \code{'auto'}) or a number, which will be coerced to a
 #'   string and have \code{'px'} appended.
@@ -12,28 +11,26 @@
 #'
 #' @import htmlwidgets
 #' @import assertthat
-#' @importFrom dplyr enquo pull select
+#' @importFrom dplyr enquo pull select group_split pull
+#' @importFrom purrr map keep discard
 #'
 #' @name c_hart 
 #' @export
-c_hart <- function(data, x, ..., width = NULL, height = NULL, elementId = NULL) {
+c_hart <- function(data = NULL, ..., width = NULL, height = NULL, elementId = NULL) {
 
-  assert_that(has_data(data))
-  row.names(data) <- NULL
+  data <- process_data(data)
 
-  if(!missing(x)){
-    x_enquo <- enquo(x)
-    labels <- pull(data, !!x_enquo)
-  }
+  main_caes <- get_caes(...)
 
   # forward options using x
   x = list(
-    data = data,
+    main_data = data,
+    main_caes = main_caes,
     opts = list(
       responsive = TRUE,
       type = "line",
       data = list(
-        labels = labels,
+        labels = NULL,
         datasets = list()
       )
     )
@@ -65,7 +62,8 @@ charter_html <- function(id, class, ...){
 }
 
 .build_chart <- function(c){
-  c$x$data <- NULL
+  c$x$main_data <- NULL
+  c$x$main_aes <- NULL
   return(c)
 }
 

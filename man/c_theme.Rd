@@ -142,9 +142,8 @@ Define chart theme.
 }
 
 \examples{
-cars \%>\% 
- c_hart(speed) \%>\% 
- c_scatter(dist) \%>\% 
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line() \%>\% 
  c_theme(point_radius = 8)
 
 }

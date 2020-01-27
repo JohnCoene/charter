@@ -15,9 +15,8 @@ c_layout(c, left = NULL, right = NULL, top = NULL, bottom = NULL)
 Adjust the layout of the graph.
 }
 \examples{
-cars \%>\% 
- c_hart(speed) \%>\% 
- c_scatter(dist) \%>\% 
+c_hart(cars, caes(speed, dist)) \%>\% 
+ c_line() \%>\% 
  c_layout(
    top = 20, right = 20, 
    left = 20, bottom = 20
