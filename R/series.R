@@ -7,7 +7,8 @@
 #' @param label Label of the serie, if \code{NULL} then the \code{serie} is used.
 #' @param inherit_caes Whether to inherit \code{\link{caes}} from \code{\link{c_hart}}.
 #' @param data If \code{NULL} inherits data from \code{\link{c_hart}}.
-#' @param orient Orientation of box and violin plots.
+#' @param orient Orientation of box, violin, and plots.
+#' @param type Type of error bar to apply.
 #' 
 #' @examples 
 #' c_hart(cars, caes(speed, dist)) %>% 
@@ -25,6 +26,16 @@
 #'  c_hart(caes(mpg, qsec, group = cyl)) %>% 
 #'  c_violin()
 #' 
+#' df <- data.frame(
+#'  x = factor(c(1, 2)),
+#'  y = c(1, 5),
+#'  upper = c(1.1, 5.3),
+#'  lower = c(0.8, 4.3)
+#' )
+#' 
+#' c_hart(df, caes(x, y, xmin = lower, ymax = upper)) %>% 
+#'  c_error_bar(type = "bar")
+#' 
 #' @name series
 #' @export
 c_line <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_line")
@@ -32,8 +43,9 @@ c_line <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMe
 #' @export 
 #' @method c_line charter
 c_line.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "line"
-  generate_serie(c, data, label, inherit_caes, type = "line", ...)
+  type <- "line"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -43,8 +55,9 @@ c_scatter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) Us
 #' @export 
 #' @method c_scatter charter
 c_scatter.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "scatter"
-  generate_serie(c, data, label, inherit_caes, type = "scatter", ...)
+  type <- "scatter"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -54,19 +67,28 @@ c_bubble <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) Use
 #' @export 
 #' @method c_bubble charter
 c_bubble.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "bubble"
-  generate_serie(c, data, label, inherit_caes, type = "bubble", ...)
+  type <- "bubble"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
 #' @export
-c_bar <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_bar")
+c_bar <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL, orient = c("vertical", "horizontal")) UseMethod("c_bar")
 
 #' @export 
 #' @method c_bar charter
-c_bar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "bar"
-  generate_serie(c, data, label, inherit_caes, type = "bar", ...)
+c_bar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL, orient = c("vertical", "horizontal")){
+  type <- "bar"
+  # type
+  orient <- match.arg(orient)
+  if(orient == "vertical")
+    type <- "bar"
+  else
+    type <- "horizontalBar"
+  
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -76,8 +98,9 @@ c_radar <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseM
 #' @export 
 #' @method c_radar charter
 c_radar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "radar"
-  generate_serie(c, data, label, inherit_caes, type = "radar", ...)
+  type <- "radar"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -87,8 +110,9 @@ c_pie <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMet
 #' @export 
 #' @method c_pie charter
 c_pie.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "pie"
-  generate_serie(c, data, label, inherit_caes, type = "pie", ...)
+  type <- "pie"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -98,8 +122,9 @@ c_doughnut <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) U
 #' @export 
 #' @method c_doughnut charter
 c_doughnut.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  c$x$opts$type <- "doughnut"
-  generate_serie(c, data, label, inherit_caes, type = "doughnut", ...)
+  type <- "doughnut"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -109,7 +134,9 @@ c_polar_area <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 #' @export 
 #' @method c_polar_area charter
 c_polar_area.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL){
-  generate_serie(c, data, label, inherit_caes, type = "polarArea", ...)
+  type <- "polarArea"
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
 #' @rdname series
@@ -148,4 +175,21 @@ c_violin.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = N
   
   c$x$opts$type <- type
   generate_serie(c, data, label, inherit_caes, type = type, ..., valid_caes = "y")
+}
+
+#' @rdname series
+#' @export
+c_error_bar <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL, type = NULL) UseMethod("c_error_bar")
+
+#' @export 
+#' @method c_error_bar charter
+c_error_bar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL, 
+  type = c("bar", "horizontal_bar", "line", "scatter", "polar_area")){
+  
+  type <- match.arg(type)
+  type <- error_bar_type(type)
+  valid_caes <- error_bar_caes(type)
+  
+  c$x$opts$type <- type
+  generate_serie(c, data, label, inherit_caes, type = type, ..., valid_caes = valid_caes)
 }

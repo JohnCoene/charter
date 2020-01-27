@@ -12,6 +12,7 @@
 \alias{c_polar_area}
 \alias{c_boxplot}
 \alias{c_violin}
+\alias{c_error_bar}
 \title{Serie}
 \usage{
 c_line(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
@@ -20,7 +21,14 @@ c_scatter(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 
 c_bubble(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 
-c_bar(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
+c_bar(
+  c,
+  ...,
+  label = NULL,
+  inherit_caes = TRUE,
+  data = NULL,
+  orient = c("vertical", "horizontal")
+)
 
 c_radar(c, ..., label = NULL, inherit_caes = TRUE, data = NULL)
 
@@ -47,6 +55,15 @@ c_violin(
   data = NULL,
   orient = c("vertical", "horizontal")
 )
+
+c_error_bar(
+  c,
+  ...,
+  label = NULL,
+  inherit_caes = TRUE,
+  data = NULL,
+  type = NULL
+)
 }
 \arguments{
 \item{c}{An object of class \code{charter} as returned by \code{\link{c_hart}}.}
@@ -59,7 +76,9 @@ c_violin(
 
 \item{data}{If \code{NULL} inherits data from \code{\link{c_hart}}.}
 
-\item{orient}{Orientation of box and violin plots.}
+\item{orient}{Orientation of box, violin, and plots.}
+
+\item{type}{Type of error bar to apply.}
 }
 \description{
 Add a series to chart.
@@ -79,5 +98,15 @@ mtcars \%>\%
 mtcars \%>\% 
  c_hart(caes(mpg, qsec, group = cyl)) \%>\% 
  c_violin()
+
+df <- data.frame(
+ x = factor(c(1, 2)),
+ y = c(1, 5),
+ upper = c(1.1, 5.3),
+ lower = c(0.8, 4.3)
+)
+
+c_hart(df, caes(x, y, xmin = lower, ymax = upper)) \%>\% 
+ c_error_bar(type = "bar")
 
 }

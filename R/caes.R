@@ -6,6 +6,14 @@
 #'  variables. The names for x and y aesthetics are typically omitted because
 #'  they are so common; all other aspects must be named.
 #' 
+#' @section Aesthetics:
+#' \itemize{
+#'  \item{\code{x}, \code{y}}
+#'  \item{\code{size}}
+#'  \item{\code{xmin}, \code{ymin}}
+#'  \item{\code{xmax}, \code{ymax}}
+#' }
+#' 
 #' @export
 caes <- function(x, y, ...) {
   exprs <- rlang::enquos(x = x, y = y, ..., .ignore_empty = "all")
@@ -113,8 +121,17 @@ rename_caes <- function(caes){
   if(!length(caes))
     return(caes)
 
+  # get names
   nms <- names(caes)
-  nms <- gsub("size", "r", nms)
+
+  # replace
+  nms <- replace(nms, nms == "size", "z")
+  nms <- replace(nms, nms == "ymin", "yMin")
+  nms <- replace(nms, nms == "xmin", "xMin")
+  nms <- replace(nms, nms == "ymax", "yMax")
+  nms <- replace(nms, nms == "xmax", "yMax")
+
+  # rename
   names(caes) <- nms
   return(caes)
 }

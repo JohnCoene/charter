@@ -14,3 +14,13 @@ they are so common; all other aspects must be named.}
 \description{
 Aesthetics to use to draw series on chart.
 }
+\section{Aesthetics}{
+
+\itemize{
+\item{\code{x}, \code{y}}
+\item{\code{size}}
+\item{\code{xmin}, \code{ymin}}
+\item{\code{xmax}, \code{ymax}}
+}
+}
+

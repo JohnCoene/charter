@@ -31,6 +31,33 @@ on_failure(has_caes) <- function(call, env) {
     crayon::red("aesthetics"),
     ", see `", 
     crayon::cyan("caes")
-    ,"`."
+    ,"`"
+  )
+}
+
+not_missing <- function(x) {
+  !missing(x)
+}
+
+on_failure(not_missing) <- function(call, env) {
+  paste0(
+    "Missing `",
+    crayon::red(deparse(call$x)),
+    "`"
+  )
+}
+
+valid_alpha <- function(alpha) {
+  alpha >= 0 & alpha <= 1
+}
+
+on_failure(valid_alpha) <- function(call, env) {
+  paste0(
+    "Invalid `",
+    crayon::red(deparse(call$alpha)),
+    "`, must be between",
+    crayon::cyan("0"),
+    " and ",
+    crayon::cyan("1")
   )
 }

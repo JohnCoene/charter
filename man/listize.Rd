@@ -8,6 +8,8 @@ listize(data, valid_caes)
 }
 \arguments{
 \item{data}{A data.frame.}
+
+\item{valid_caes}{Valid aesthetics.}
 }
 \description{
 Turn a data.frame into a list

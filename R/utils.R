@@ -2,7 +2,7 @@ globalVariables(
   c("group")
 )
 
-ALL_CAES <- c("x", "y", "r", "group")
+ALL_CAES <- c("x", "y", "r", "group", "xMin", "yMin", "xMax", "yMax")
 
 #' Preprocess
 #' 
@@ -77,6 +77,7 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
 #' Turn a data.frame into a list
 #' 
 #' @param data A data.frame.
+#' @param valid_caes Valid aesthetics.
 #' 
 #' @keywords internal
 listize <- function(data, valid_caes){
@@ -93,6 +94,19 @@ listize <- function(data, valid_caes){
     apply(data, 1, as.list)
 }
 
+#' Groups to Series
+#' 
+#' Maps groups to series.
+#' 
+#' @param group_data A data.frame.
+#' @param label Label assigned by user.
+#' @param opts Additional options.
+#' @param N Number of series.
+#' @param type type of chart to draw.
+#' @param caes Aesthetics.
+#' @param valid_caes Valid aesthetics to keep in dataset.
+#' 
+#' @keywords internal
 group_to_serie <- function(group_data, label, opts, N, type, caes, valid_caes = ALL_CAES){
   # add based on y if only one group
   label <- get_label(group_data, label, caes, N)
@@ -204,4 +218,46 @@ handle_labels <- function(labels, main_caes, main_data, data, inherit_caes = TRU
     data %>% 
       pull(!!caes$x) %>% 
       unique()
+}
+
+#' Get Aesthetics from Type
+#' 
+#' Get valid aesthetics from error bar type.
+#' 
+#' @param type An error bar type.
+#' 
+#' @keywords internal
+error_bar_caes <- function(type){
+  switch(
+    type,
+    "barWithErrorBars" = c("y", "yMin", "yMax"),
+    "horizontalBarWithErrorBars" = c("x", "xMin", "xMax"),
+    "lineWithErrorBars" = c("y", "yMin", "yMax"),
+    "scatterWithErrorBars" = c("y", "x", "xMin", "xMax", "yMin", "yMax"),
+    "polarAreaWithErrorBars" = c("y", "yMin", "yMax")
+  )
+}
+
+#' Convert Error Type
+#' 
+#' Convert convenient user facing type to internal error type.
+#' 
+#' @param type An error bar type.
+#' 
+#' @keywords internal
+error_bar_type <- function(type){
+
+  type <- strsplit(type, "_")[[1]]
+
+  # split at _
+  if(length(type) == 2){
+    type[2] <- tools::toTitleCase(type[2])
+    type <- paste0(type, collapse = "")
+  }
+
+  # make error type
+  type <- paste0(type, "WithErrorBars")
+
+  return(type)
+
 }
