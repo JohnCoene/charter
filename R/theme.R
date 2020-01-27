@@ -123,7 +123,6 @@ c_theme.charter <- function(c, point_radius = 3, point_style = "circle", point_r
     borderWidth = line_border_width, 
     borderColor = line_border_color, 
     borderCapStyle = line_border_cap_style, 
-    borderDash = line_border_dash, 
     borderDashOffset = line_border_dash_offset, 
     borderJoinStyle = line_border_join_style,
     capBezierPoints = line_cap_bezier, 
@@ -131,6 +130,9 @@ c_theme.charter <- function(c, point_radius = 3, point_style = "circle", point_r
     fill = line_fill, 
     stepped = line_stepped
   )
+
+  if(!is.null(line_border_dash))
+  line$borderDash <- line_border_dash
 
   rectangle <- list(
     backgroundColor = rect_color, 
