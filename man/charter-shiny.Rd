@@ -4,11 +4,20 @@
 \alias{charter-shiny}
 \alias{charterOutput}
 \alias{renderCharter}
+\alias{render_charter}
+\alias{charterProxy}
+\alias{charter_proxy}
 \title{Shiny bindings for charter}
 \usage{
 charterOutput(outputId, width = "100\%", height = "400px")
 
 renderCharter(expr, env = parent.frame(), quoted = FALSE)
+
+render_charter(expr, env = parent.frame(), quoted = FALSE)
+
+charterProxy(id, session = shiny::getDefaultReactiveDomain())
+
+charter_proxy(id, session = shiny::getDefaultReactiveDomain())
 }
 \arguments{
 \item{outputId}{output variable to read from}

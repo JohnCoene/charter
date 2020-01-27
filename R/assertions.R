@@ -47,6 +47,18 @@ on_failure(not_missing) <- function(call, env) {
   )
 }
 
+not_null <- function(x) {
+  !is.null(x)
+}
+
+on_failure(not_null) <- function(call, env) {
+  paste0(
+    "Must specify `",
+    crayon::red(deparse(call$x)),
+    "`"
+  )
+}
+
 valid_alpha <- function(alpha) {
   alpha >= 0 & alpha <= 1
 }

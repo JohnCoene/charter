@@ -28,6 +28,7 @@ c_hart <- function(data = NULL, ..., width = NULL, height = NULL, elementId = NU
     main_caes = main_caes,
     opts = list(
       responsive = TRUE,
+      maintainAspectRatio = FALSE,
       type = "line",
       data = list(
         labels = NULL,
@@ -54,9 +55,10 @@ chart <- c_hart
 
 charter_html <- function(id, class, ...){
   shiny::tags$div(
-    id = paste0(id, "-wrapper"),
+    id = id,
+    class = class, ...,
     shiny::tags$canvas(
-      id = id, class = class, ...
+      id = paste0(id, "-canvas")
     )
   )
 }
@@ -93,4 +95,26 @@ charterOutput <- function(outputId, width = '100%', height = '400px'){
 renderCharter <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, charterOutput, env, quoted = TRUE)
+}
+
+#' @rdname charter-shiny
+#' @export
+render_charter <- renderCharter
+
+#' @rdname charter-shiny
+#' @export
+charterProxy <- function(id, session = shiny::getDefaultReactiveDomain()){
+  
+  proxy <- list(id = id, session = session)
+  
+  structure(proxy, class = c("charterProxy", class(proxy)))
+}
+
+#' @rdname charter-shiny
+#' @export
+charter_proxy <- charterProxy
+
+#' @export
+print.charterProxy <- function(x, ...){
+  cat("A proxy for a charter plot\n")
 }

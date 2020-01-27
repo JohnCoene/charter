@@ -48,6 +48,27 @@ c_line.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NUL
   generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
+#' @export 
+#' @method c_line charterProxy
+c_line.charterProxy <- function(c, ..., label = NULL, data = NULL){
+  assert_that(not_null(data))
+  type <- "line"
+
+  serie <- make_serie(
+    list(), 
+    NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = type, 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie)
+  c$session$sendCustomMessage("c-update", msg)
+  return(c)
+}
+
 #' @rdname series
 #' @export
 c_scatter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_scatter")
