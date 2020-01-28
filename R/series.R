@@ -11,19 +11,19 @@
 #' @param type Type of error bar to apply.
 #' 
 #' @examples 
-#' c_hart(cars, caes(speed, dist)) %>% 
+#' chart(cars, caes(speed, dist)) %>% 
 #'  c_line()
 #' 
 #' mtcars %>% 
-#'  c_hart(caes(qsec, mpg, group = cyl)) %>% 
+#'  chart(caes(qsec, mpg, group = cyl)) %>% 
 #'  c_scatter(color = "red")
 #' 
 #' mtcars %>% 
-#'  c_hart(caes(qsec, mpg, group = cyl)) %>% 
+#'  chart(caes(qsec, mpg, group = cyl)) %>% 
 #'  c_bubble(caes(size = drat))
 #' 
 #' mtcars %>% 
-#'  c_hart(caes(mpg, qsec, group = cyl)) %>% 
+#'  chart(caes(y = qsec, group = cyl)) %>% 
 #'  c_violin()
 #' 
 #' df <- data.frame(
@@ -33,7 +33,7 @@
 #'  lower = c(0.8, 4.3)
 #' )
 #' 
-#' c_hart(df, caes(x, y, xmin = lower, ymax = upper)) %>% 
+#' chart(df, caes(x, y, xmin = lower, ymax = upper)) %>% 
 #'  c_error_bar(type = "bar")
 #' 
 #' @name series
@@ -52,14 +52,13 @@ c_line.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NUL
 #' @method c_line charterProxy
 c_line.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
   assert_that(not_null(data))
-  type <- "line"
 
   serie <- make_serie(
-    list(), 
-    NULL, 
+    main_caes = list(), 
+    main_data = NULL, 
     data = data, 
     inherit_caes = FALSE, 
-    type = type, 
+    type = "line", 
     label = label, 
     ...
   )
@@ -82,6 +81,27 @@ c_scatter.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = 
   generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
+#' @export 
+#' @method c_scatter charterProxy
+c_scatter.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "scatter", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
+}
+
 #' @rdname series
 #' @export
 c_bubble <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_bubble")
@@ -92,6 +112,27 @@ c_bubble.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = N
   type <- "bubble"
   c$x$opts$type <- type
   generate_serie(c, data, label, inherit_caes, type = type, ...)
+}
+
+#' @export 
+#' @method c_bubble charterProxy
+c_bubble.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "bubble", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }
 
 #' @rdname series
@@ -113,6 +154,27 @@ c_bar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL
   generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
+#' @export 
+#' @method c_bar charterProxy
+c_bar.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "bar", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
+}
+
 #' @rdname series
 #' @export
 c_radar <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_radar")
@@ -123,6 +185,27 @@ c_radar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NU
   type <- "radar"
   c$x$opts$type <- type
   generate_serie(c, data, label, inherit_caes, type = type, ...)
+}
+
+#' @export 
+#' @method c_radar charterProxy
+c_radar.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "radar", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }
 
 #' @rdname series
@@ -137,6 +220,27 @@ c_pie.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL
   generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
+#' @export 
+#' @method c_pie charterProxy
+c_pie.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "pie", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
+}
+
 #' @rdname series
 #' @export
 c_doughnut <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_doughnut")
@@ -149,6 +253,27 @@ c_doughnut.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data =
   generate_serie(c, data, label, inherit_caes, type = type, ...)
 }
 
+#' @export 
+#' @method c_doughnut charterProxy
+c_doughnut.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "doughnut", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
+}
+
 #' @rdname series
 #' @export
 c_polar_area <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL) UseMethod("c_polar_area")
@@ -159,6 +284,27 @@ c_polar_area.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data
   type <- "polarArea"
   c$x$opts$type <- type
   generate_serie(c, data, label, inherit_caes, type = type, ...)
+}
+
+#' @export 
+#' @method c_polar_area charterProxy
+c_polar_area.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
+  assert_that(not_null(data))
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "polarArea", 
+    label = label, 
+    ...
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }
 
 #' @rdname series
@@ -177,7 +323,43 @@ c_boxplot.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = 
     type <- "horizontalBoxplot"
 
   c$x$opts$type <- type
-  generate_serie(c, data, label, inherit_caes, type = type, ...)
+  generate_serie(
+    c, data, label, 
+    inherit_caes, 
+    type = type, ..., 
+    valid_caes = c("x", "y"),
+    x_as_list = TRUE
+  )
+}
+
+#' @export 
+#' @method c_boxplot charterProxy
+c_boxplot.charterProxy <- function(c, ..., label = NULL, data = NULL, orient = c("vertical", "horizontal"), update = TRUE){
+  assert_that(not_null(data))
+
+  # type
+  orient <- match.arg(orient)
+  if(orient == "vertical")
+    type <- "boxplot"
+  else
+    type <- "horizontalBoxplot"
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = type, 
+    label = label, 
+    ...,
+    valid_caes = c("x", "y"),
+    x_as_list = TRUE
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }
 
 #' @rdname series
@@ -196,7 +378,42 @@ c_violin.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = N
     type <- "horizontalViolin"
   
   c$x$opts$type <- type
-  generate_serie(c, data, label, inherit_caes, type = type, ..., valid_caes = "y")
+  generate_serie(
+    c, data, label, 
+    inherit_caes, type = type, 
+    ..., valid_caes = c("x", "y"),
+    x_as_list = TRUE
+  )
+}
+
+#' @export 
+#' @method c_violin charterProxy
+c_violin.charterProxy <- function(c, ..., label = NULL, data = NULL, orient = c("vertical", "horizontal"), update = TRUE){
+  assert_that(not_null(data))
+
+  # type
+  orient <- match.arg(orient)
+  if(orient == "vertical")
+    type <- "violin"
+  else
+    type <- "horizontalViolin"
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = type, 
+    label = label, 
+    ...,
+    valid_caes = c("x", "y"),
+    x_as_list = TRUE
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }
 
 #' @rdname series
@@ -214,4 +431,32 @@ c_error_bar.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data 
   
   c$x$opts$type <- type
   generate_serie(c, data, label, inherit_caes, type = type, ..., valid_caes = valid_caes)
+}
+
+#' @export 
+#' @method c_error_bar charterProxy
+c_error_bar.charterProxy <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NULL, 
+  type = c("bar", "horizontal_bar", "line", "scatter", "polar_area"), update = TRUE){
+  
+  assert_that(not_null(data))
+
+  type <- match.arg(type)
+  type <- error_bar_type(type)
+  valid_caes <- error_bar_caes(type)
+
+  serie <- make_serie(
+    main_caes = list(), 
+    main_data = NULL, 
+    data = data, 
+    inherit_caes = FALSE, 
+    type = "polarArea", 
+    label = label, 
+    ...,
+    valid_caes = valid_caes
+  )
+
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }

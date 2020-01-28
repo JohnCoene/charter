@@ -84,19 +84,19 @@ c_error_bar(
 Add a series to chart.
 }
 \examples{
-c_hart(cars, caes(speed, dist)) \%>\% 
+chart(cars, caes(speed, dist)) \%>\% 
  c_line()
 
 mtcars \%>\% 
- c_hart(caes(qsec, mpg, group = cyl)) \%>\% 
+ chart(caes(qsec, mpg, group = cyl)) \%>\% 
  c_scatter(color = "red")
 
 mtcars \%>\% 
- c_hart(caes(qsec, mpg, group = cyl)) \%>\% 
+ chart(caes(qsec, mpg, group = cyl)) \%>\% 
  c_bubble(caes(size = drat))
 
 mtcars \%>\% 
- c_hart(caes(mpg, qsec, group = cyl)) \%>\% 
+ chart(caes(y = qsec, group = cyl)) \%>\% 
  c_violin()
 
 df <- data.frame(
@@ -106,7 +106,7 @@ df <- data.frame(
  lower = c(0.8, 4.3)
 )
 
-c_hart(df, caes(x, y, xmin = lower, ymax = upper)) \%>\% 
+chart(df, caes(x, y, xmin = lower, ymax = upper)) \%>\% 
  c_error_bar(type = "bar")
 
 }

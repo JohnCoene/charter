@@ -12,7 +12,8 @@ make_serie(
   type = "line",
   label = NULL,
   ...,
-  valid_caes = ALL_CAES
+  valid_caes = ALL_CAES,
+  x_as_list = FALSE
 )
 }
 \arguments{
@@ -27,6 +28,10 @@ make_serie(
 \item{label}{Serie label.}
 
 \item{...}{Addiitonal options and aesthetics.}
+
+\item{valid_caes}{Valid aesthetics to keep on final plot.}
+
+\item{x_as_list}{Whether to plot each x as a sublist.}
 }
 \description{
 Make Chart.js series from aesthetics and data.

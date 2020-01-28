@@ -4,7 +4,16 @@
 \alias{group_to_serie}
 \title{Groups to Series}
 \usage{
-group_to_serie(group_data, label, opts, N, type, caes, valid_caes = ALL_CAES)
+group_to_serie(
+  group_data,
+  label,
+  opts,
+  N,
+  type,
+  caes,
+  valid_caes = ALL_CAES,
+  x_as_list = FALSE
+)
 }
 \arguments{
 \item{group_data}{A data.frame.}
@@ -20,6 +29,8 @@ group_to_serie(group_data, label, opts, N, type, caes, valid_caes = ALL_CAES)
 \item{caes}{Aesthetics.}
 
 \item{valid_caes}{Valid aesthetics to keep in dataset.}
+
+\item{x_as_list}{Whether to plot each x as a sublist.}
 }
 \description{
 Maps groups to series.

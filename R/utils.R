@@ -1,5 +1,5 @@
 globalVariables(
-  c("group")
+  c("group", "x")
 )
 
 ALL_CAES <- c("x", "y", "r", "group", "xMin", "yMin", "xMax", "yMax")
@@ -31,10 +31,12 @@ process_data <- function(data){
 #' @param type Type of serie to make.
 #' @param label Serie label.
 #' @param ... Addiitonal options and aesthetics.
+#' @param valid_caes Valid aesthetics to keep on final plot.
+#' @param x_as_list Whether to plot each x as a sublist.
 #' 
 #' @keywords internal
 make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE, 
-  type = "line", label = NULL, ..., valid_caes = ALL_CAES){
+  type = "line", label = NULL, ..., valid_caes = ALL_CAES, x_as_list = FALSE){
 
   # process aes
   caes <- get_caes(...)
@@ -68,7 +70,8 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
     N = length(data), 
     type = type,
     caes = caes,
-    valid_caes = valid_caes
+    valid_caes = valid_caes,
+    x_as_list = x_as_list
   )
 }
 
@@ -78,15 +81,34 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
 #' 
 #' @param data A data.frame.
 #' @param valid_caes Valid aesthetics.
+#' @param x_as_list Whether to plot each x as a sublist.
+#' 
+#' @section X as list:
+#' Default data format is 
+#' [{x:1, y:2}, {x:1, y:3}, {x:2, y:3}, {x:2, y:5}]
+#' with \code{x_as_list} set to \code{TRUE} each x is as a list
+#' so the data looks like:
+#' [[2,3],[3,5]]
+#' Currently used for boxplot and violin plot.
 #' 
 #' @keywords internal
-listize <- function(data, valid_caes){
+listize <- function(data, valid_caes, x_as_list = FALSE){
   if("group" %in% names(data))
     data <- select(data, -group) 
 
   data <- suppressWarnings(
     select(data, dplyr::one_of(valid_caes))
   )
+
+  # if it's a special case & x exists
+  if(x_as_list && "x" %in% names(data)){
+    lst <- data %>% 
+      group_split(x) %>% 
+      map(function(x){
+        unlist(x$y)
+      })
+    return(lst)
+  }
 
   if(ncol(data) == 1)
     data %>% unlist() %>% unname() %>% list()
@@ -105,14 +127,16 @@ listize <- function(data, valid_caes){
 #' @param type type of chart to draw.
 #' @param caes Aesthetics.
 #' @param valid_caes Valid aesthetics to keep in dataset.
+#' @param x_as_list Whether to plot each x as a sublist.
 #' 
 #' @keywords internal
-group_to_serie <- function(group_data, label, opts, N, type, caes, valid_caes = ALL_CAES){
+group_to_serie <- function(group_data, label, opts, N, type, caes, 
+  valid_caes = ALL_CAES, x_as_list = FALSE){
   # add based on y if only one group
   label <- get_label(group_data, label, caes, N)
 
   # remove uneeded group
-  group_data <- listize(group_data, valid_caes)
+  group_data <- listize(group_data, valid_caes, x_as_list)
 
   # basic serie
   serie <- list(
