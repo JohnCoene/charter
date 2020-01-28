@@ -110,9 +110,12 @@ listize <- function(data, valid_caes, x_as_list = FALSE){
     return(lst)
   }
 
-  if(ncol(data) == 1)
-    data %>% unlist() %>% unname() %>% list()
-  else
+  if(ncol(data) == 1) {
+    data <- data %>% unlist() %>% unname()
+    if(x_as_list) # exception for violin and boxplot
+      data <- list(data)
+    return(data)
+  } else
     apply(data, 1, as.list)
 }
 
@@ -187,6 +190,21 @@ get_label <- function(data, label, caes, N){
 #' 
 #' @keywords internal
 generate_serie <- function(c, data, label, inherit_caes, type = "line", ..., valid_caes = ALL_CAES){
+
+  caes <- get_caes(...)
+  caes <- combine_caes(c$x$main_caes, caes, inherit_caes = inherit_caes)
+
+  c$x$opts$options$scales <- handle_scales(
+    data = data, 
+    caes = caes, 
+    scales = c$x$opts$options$scales,
+    axis = "x"
+  )
+
+  # execption for category and time
+  if(!is.null(c$x$opts$options$scales$xAxis[[1]]$type))
+    if(c$x$opts$options$scales$xAxis[[1]]$type %in% c("category", "time"))
+      valid_caes <- "y"
   
   serie <- make_serie(
     c$x$main_caes, 
@@ -198,8 +216,8 @@ generate_serie <- function(c, data, label, inherit_caes, type = "line", ..., val
     ...,
     valid_caes = valid_caes
   )
-
-  c$x$opts$data$labels <- handle_labels(
+  
+  c$x$opts$options$scales$xAxis[[1]]$labels <- handle_labels(
     c$x$opts$data$labels, 
     c$x$main_caes,
     c$x$main_data,
@@ -284,4 +302,66 @@ error_bar_type <- function(type){
 
   return(type)
 
+}
+
+#' Handle Scales
+#' 
+#' Constructs axis based on input data.
+#' 
+#' @param data A data.frame.
+#' @param caes Aesthetics.
+#' @param scales Currently set scales.
+#' @param ... any other options to pass to axis.
+#' @param axis Axis to define.
+#' 
+#' @name handle_scales
+#' @keywords internal
+handle_scale <- function(data = NULL, caes = list(), scales = list(), ..., axis = c("x", "y")){
+
+  if(is.null(data))
+    return(scales)
+
+  # axis entry
+  axis <- match.arg(axis)
+
+  if(is.null(caes[[axis]]))
+    return(scales)
+
+  # get values
+  values <- pull(data, !!caes[[axis]])
+
+  axis <- paste0(axis, "Axis")
+
+  # default to linear
+  type <- "linear"
+  if(is.factor(values) | is.character(values))
+    type <- "category"
+  
+  if(is.date(values) | is.time(values))
+    type <- "time"
+
+  scales[[axis]] <- list(list(type = type, ...))
+
+  return(scales)
+
+}
+
+#' @rdname handle_scales
+#' @keywords internal
+handle_scales <- function(data = NULL, caes = list(), scales = list(), ..., axis = c("x", "y")){
+  # scales
+  scales <- handle_scale(
+    data = data, 
+    caes = caes, 
+    scales = scales,
+    axis = "x",
+    ...
+  )
+  handle_scale(
+    data = data, 
+    scales = scales,
+    caes = caes, 
+    axis = "y",
+    ...
+  )
 }

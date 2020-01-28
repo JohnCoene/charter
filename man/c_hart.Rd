@@ -5,9 +5,9 @@
 \alias{chart}
 \title{Initialise}
 \usage{
-c_hart(data = NULL, ..., width = NULL, height = NULL, elementId = NULL)
+c_hart(data = NULL, ..., width = "100\%", height = NULL, elementId = NULL)
 
-chart(data = NULL, ..., width = NULL, height = NULL, elementId = NULL)
+chart(data = NULL, ..., width = "100\%", height = NULL, elementId = NULL)
 }
 \arguments{
 \item{data}{Data.frame holding data to plot.}

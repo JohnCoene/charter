@@ -18,9 +18,15 @@
 #' @export
 c_hart <- function(data = NULL, ..., width = "100%", height = NULL, elementId = NULL) {
 
+  # preprocess inputs
   data <- process_data(data)
-
   main_caes <- get_caes(...)
+
+  # scales
+  scales <- handle_scales(
+    data = data, 
+    caes = main_caes
+  )
 
   # get labels for empty chart
   if(!is.null(data))
@@ -44,6 +50,9 @@ c_hart <- function(data = NULL, ..., width = "100%", height = NULL, elementId = 
       data = list(
         labels = labels,
         datasets = list()
+      ),
+      options = list(
+        scales = scales
       )
     )
   )
