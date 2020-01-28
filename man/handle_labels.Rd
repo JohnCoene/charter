@@ -4,7 +4,14 @@
 \alias{handle_labels}
 \title{Handle Labels}
 \usage{
-handle_labels(labels, main_caes, main_data, data, inherit_caes = TRUE, ...)
+handle_labels(
+  labels = NULL,
+  main_caes = list(),
+  main_data = NULL,
+  data = NULL,
+  inherit_caes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{labels}{Current labels.}

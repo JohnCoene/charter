@@ -85,10 +85,10 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
 #' 
 #' @section X as list:
 #' Default data format is 
-#' [{x:1, y:2}, {x:1, y:3}, {x:2, y:3}, {x:2, y:5}]
+#' \code{[{x:1, y:2}, {x:1, y:3}, {x:2, y:3}, {x:2, y:5}]}
 #' with \code{x_as_list} set to \code{TRUE} each x is as a list
 #' so the data looks like:
-#' [[2,3],[3,5]]
+#' \code{[[2,3],[3,5]]}
 #' Currently used for boxplot and violin plot.
 #' 
 #' @keywords internal
@@ -223,7 +223,7 @@ generate_serie <- function(c, data, label, inherit_caes, type = "line", ..., val
 #' @param ... Additional aesthetics.
 #' 
 #' @keywords internal
-handle_labels <- function(labels, main_caes, main_data, data, inherit_caes = TRUE, ...){
+handle_labels <- function(labels = NULL, main_caes = list(), main_data = NULL, data = NULL, inherit_caes = TRUE, ...){
 
   if(!is.null(labels))
     return(labels)

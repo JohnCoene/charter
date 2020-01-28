@@ -19,10 +19,10 @@ Turn a data.frame into a list
 \section{X as list}{
 
 Default data format is
-\link{{x:1, y:2}, {x:1, y:3}, {x:2, y:3}, {x:2, y:5}}
+\code{[{x:1, y:2}, {x:1, y:3}, {x:2, y:3}, {x:2, y:5}]}
 with \code{x_as_list} set to \code{TRUE} each x is as a list
 so the data looks like:
-[\link{2,3},\link{3,5}]
+\code{[[2,3],[3,5]]}
 Currently used for boxplot and violin plot.
 }
 

@@ -16,11 +16,22 @@
 #'
 #' @name c_hart 
 #' @export
-c_hart <- function(data = NULL, ..., width = NULL, height = NULL, elementId = NULL) {
+c_hart <- function(data = NULL, ..., width = "100%", height = NULL, elementId = NULL) {
 
   data <- process_data(data)
 
   main_caes <- get_caes(...)
+
+  # get labels for empty chart
+  if(!is.null(data))
+    labels <- handle_labels(
+      labels = NULL, 
+      main_caes = list(),
+      main_data = NULL,
+      data, 
+      inherit_caes = FALSE,
+      ...
+    )
 
   # forward options using x
   x = list(
@@ -31,7 +42,7 @@ c_hart <- function(data = NULL, ..., width = NULL, height = NULL, elementId = NU
       maintainAspectRatio = FALSE,
       type = "line",
       data = list(
-        labels = NULL,
+        labels = labels,
         datasets = list()
       )
     )
