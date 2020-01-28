@@ -16,6 +16,7 @@
 #'  c_scatter() %>% 
 #'  c_color_scheme("brewer.DarkTwo8")
 #' 
+#' @name colors
 #' @export
 c_color_scheme <- function(c, scheme, alpha = .5, reverse = FALSE, override = FALSE) UseMethod("c_color_scheme")
 
@@ -23,7 +24,6 @@ c_color_scheme <- function(c, scheme, alpha = .5, reverse = FALSE, override = FA
 #' @method c_color_scheme charter 
 c_color_scheme.charter <- function(c, scheme, alpha = .5, reverse = FALSE, override = FALSE){
   assert_that(not_missing(scheme))
-
   assert_that(valid_alpha(alpha))
 
   # get dependency
@@ -47,5 +47,20 @@ c_color_scheme.charter <- function(c, scheme, alpha = .5, reverse = FALSE, overr
     override = override
   )
 
+  # override colors
+  c$x$main_colors <- NULL
+
+  return(c)
+}
+
+#' @rdname colors
+#' @export
+c_colors <- function(c, colors = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf")) UseMethod("c_colors")
+
+#' @rdname colors
+#' @export
+c_colors <- function(c, colors = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf")){
+  assert_that(not_missing(colors))
+  c$x$main_colors <- colors
   return(c)
 }

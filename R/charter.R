@@ -42,6 +42,7 @@ c_hart <- function(data = NULL, ..., width = "100%", height = NULL, elementId = 
   # forward options using x
   x = list(
     main_data = data,
+    main_colors = NULL,
     main_caes = main_caes,
     opts = list(
       responsive = TRUE,
@@ -86,6 +87,19 @@ charter_html <- function(id, class, ...){
 .build_chart <- function(c){
   c$x$main_data <- NULL
   c$x$main_caes <- NULL
+  
+  # apply color
+  if(is.null(c$x$main_colors))
+    return(c)
+
+  if(length(c$x$main_colors) < length(c$x$opts$data$datasets))
+    c$x$main_colors <- rep(c$x$main_colors, 3)
+  
+  for(i in 1:length(c$x$opts$data$datasets)){
+    if(is.null(c$x$opts$data$datasets[[i]]$backgroundColor))
+      c$x$opts$data$datasets[[i]]$backgroundColor <- c$x$main_colors[i]
+  }
+
   return(c)
 }
 
