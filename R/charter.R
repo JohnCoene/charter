@@ -82,6 +82,8 @@ charter_html <- function(id, class, ...){
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
+#' @param id Id of chart to build a proxy from.
+#' @param session A valid Shiny session.
 #'
 #' @name charter-shiny
 #'

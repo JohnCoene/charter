@@ -89,7 +89,7 @@ c_hart(cars, caes(speed, dist)) \%>\%
 
 mtcars \%>\% 
  c_hart(caes(qsec, mpg, group = cyl)) \%>\% 
- c_scatter()
+ c_scatter(color = "red")
 
 mtcars \%>\% 
  c_hart(caes(qsec, mpg, group = cyl)) \%>\% 

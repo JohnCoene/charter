@@ -49,14 +49,23 @@ function get_c_chart(id){
 
 if(HTMLWidgets.shinyMode){
 
-  Shiny.addCustomMessageHandler('c-update', function(msg){
+  Shiny.addCustomMessageHandler('charter-add', function(msg){
     var chart = get_c_chart(msg.id);
 
     if(typeof chart != "undefined"){
       msg.serie.forEach(function(s){
         chart.data.datasets.push(s);
       })
-      chart.update();
+      if(msg.update)
+        chart.update();
+    }
+  })
+
+  Shiny.addCustomMessageHandler('charter-update', function(msg){
+    var chart = get_c_chart(msg.id);
+
+    if(typeof chart != "undefined"){
+      chart.update(msg.opts);
     }
   })
 

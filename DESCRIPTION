@@ -14,10 +14,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
 Imports:
     shiny,
-    magrittr,
-    crayon,
-    htmlwidgets,
-    assertthat,
     dplyr,
     purrr,
-    rlang
+    rlang,
+    crayon,
+    magrittr,
+    htmltools,
+    assertthat,
+    htmlwidgets,

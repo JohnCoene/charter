@@ -16,7 +16,7 @@
 #' 
 #' mtcars %>% 
 #'  c_hart(caes(qsec, mpg, group = cyl)) %>% 
-#'  c_scatter()
+#'  c_scatter(color = "red")
 #' 
 #' mtcars %>% 
 #'  c_hart(caes(qsec, mpg, group = cyl)) %>% 
@@ -50,7 +50,7 @@ c_line.charter <- function(c, ..., label = NULL, inherit_caes = TRUE, data = NUL
 
 #' @export 
 #' @method c_line charterProxy
-c_line.charterProxy <- function(c, ..., label = NULL, data = NULL){
+c_line.charterProxy <- function(c, ..., label = NULL, data = NULL, update = TRUE){
   assert_that(not_null(data))
   type <- "line"
 
@@ -64,9 +64,10 @@ c_line.charterProxy <- function(c, ..., label = NULL, data = NULL){
     ...
   )
 
-  msg <- list(id = c$id, serie = serie)
-  c$session$sendCustomMessage("c-update", msg)
-  return(c)
+  msg <- list(id = c$id, serie = serie, update = update)
+  c$session$sendCustomMessage("charter-add", msg)
+
+  invisible(c)
 }
 
 #' @rdname series
