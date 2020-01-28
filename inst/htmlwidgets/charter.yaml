@@ -6,5 +6,4 @@ dependencies:
     - chart.bundle.min.js
     - plugins/boxplot.min.js
     - plugins/errorbar.min.js
-    - plugins/colorschemes.min.js
    stylesheet: chart.min.css

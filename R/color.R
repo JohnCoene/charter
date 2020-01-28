@@ -26,6 +26,20 @@ c_color_scheme.charter <- function(c, scheme, alpha = .5, reverse = FALSE, overr
 
   assert_that(valid_alpha(alpha))
 
+  # get dependency
+  path <- "htmlwidgets/lib/chartjs/plugins"
+  file <- system.file(path, package = "charter")
+  dep <- htmltools::htmlDependency(
+    name = "colorschemes", 
+    version = "0.4.0", 
+    src = c(file = file),
+    script = "colorschemes.min.js"
+  ) 
+
+  # add dep
+  c$dependencies <- append(c$dependencies, list(dep))
+
+  # add plugin options
   c$x$opts$options$plugins$colorschemes <- list(
     scheme = scheme,
     fillAlpha = alpha,
