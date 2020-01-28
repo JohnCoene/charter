@@ -93,11 +93,12 @@ mtcars \%>\%
 
 mtcars \%>\% 
  chart(caes(qsec, mpg, group = cyl)) \%>\% 
- c_bubble(caes(size = drat))
+ c_bubble(caes(size = drat)) \%>\% 
+ c_color_scheme("brewer.Oranges3")
 
-mtcars \%>\% 
- chart(caes(y = qsec, group = cyl)) \%>\% 
- c_violin()
+chart(mtcars, caes(y = qsec, group = cyl)) \%>\% 
+ c_violin() \%>\% 
+ c_colors()
 
 df <- data.frame(
  x = factor(c(1, 2)),

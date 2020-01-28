@@ -4,6 +4,8 @@ globalVariables(
 
 ALL_CAES <- c("x", "y", "r", "group", "xMin", "yMin", "xMax", "yMax")
 
+DEFAULT_PALETTE <- c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf")
+
 #' Preprocess
 #' 
 #' Preprocess data.frame.

@@ -9,6 +9,8 @@
 #' @param reverse If set to \code{TRUE}, the order of the colors in the selected scheme is reversed.
 #' @param override If set to \code{TRUE}, the specified color scheme will override the existing color 
 #' options. If \code{FALSE}, it is only applied when no color setting exists.
+#' @param palette Vector of colors, hex (\code{#fff}) or RGB as string \code{rgb(255,255,255)}.
+#' @param rev Reverse the order in which to apply the colors.
 #' 
 #' @examples 
 #' mtcars %>% 
@@ -55,12 +57,16 @@ c_color_scheme.charter <- function(c, scheme, alpha = .5, reverse = FALSE, overr
 
 #' @rdname colors
 #' @export
-c_colors <- function(c, colors = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf")) UseMethod("c_colors")
+c_colors <- function(c, palette = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf"), rev = FALSE) UseMethod("c_colors")
 
-#' @rdname colors
+#' @method c_colors charter
 #' @export
-c_colors <- function(c, colors = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf")){
-  assert_that(not_missing(colors))
-  c$x$main_colors <- colors
+c_colors.charter <- function(c, palette = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff", "#c9cbcf"), rev = FALSE){
+  assert_that(not_missing(palette))
+
+  if(rev)
+    palette <- rev(palette)
+  
+  c$x$main_colors <- palette
   return(c)
 }

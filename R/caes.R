@@ -50,11 +50,11 @@ new_aesthetic <- function(x, env = globalenv()) {
 new_aes <- function(x, env = globalenv()) {
   stopifnot(is.list(x))
   x <- lapply(x, new_aesthetic, env = env)
-  structure(x, class = c("uneval"))
+  structure(x, class = c("unevaluated"))
 }
 
 #' @export
-print.uneval <- function(x, ...) {
+print.unevaluated <- function(x, ...) {
   cat("Aesthetics: \n")
 
   if (length(x) == 0) {
@@ -70,24 +70,24 @@ print.uneval <- function(x, ...) {
 }
 
 #' @export
-"[.uneval" <- function(x, i, ...) {
+"[.unevaluated" <- function(x, i, ...) {
   new_aes(NextMethod())
 }
 
 # If necessary coerce replacements to quosures for compatibility
 #' @export
-"[[<-.uneval" <- function(x, i, value) {
+"[[<-.unevaluated" <- function(x, i, value) {
   new_aes(NextMethod())
 }
 #' @export
-"$<-.uneval" <- function(x, i, value) {
+"$<-.unevaluated" <- function(x, i, value) {
   # Can't use NextMethod() because of a bug in R 3.1
   x <- unclass(x)
   x[[i]] <- value
   new_aes(x)
 }
 #' @export
-"[<-.uneval" <- function(x, i, value) {
+"[<-.unevaluated" <- function(x, i, value) {
   new_aes(NextMethod())
 }
 

@@ -10,14 +10,9 @@ c_color_scheme(c, scheme, alpha = 0.5, reverse = FALSE, override = FALSE)
 
 c_colors(
   c,
-  colors = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff",
-    "#c9cbcf")
-)
-
-c_colors(
-  c,
-  colors = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff",
-    "#c9cbcf")
+  palette = c("#ff6384", "#ff9f40", "#ffcd56", "#4bc0c0", "#36a2eb", "#9966ff",
+    "#c9cbcf"),
+  rev = FALSE
 )
 }
 \arguments{
@@ -32,6 +27,10 @@ Must be a number between \code{0} (fully transparent) and \code{1} (no transpare
 
 \item{override}{If set to \code{TRUE}, the specified color scheme will override the existing color
 options. If \code{FALSE}, it is only applied when no color setting exists.}
+
+\item{palette}{Vector of colors, hex (\code{#fff}) or RGB as string \code{rgb(255,255,255)}.}
+
+\item{rev}{Reverse the order in which to apply the colors.}
 }
 \description{
 Define a color scheme using the \href{https://nagix.github.io/chartjs-plugin-colorschemes/colorchart.html}{color-scheme plugin}.
