@@ -59,6 +59,7 @@ make_serie <- function(main_caes, main_data, data = NULL, inherit_caes = TRUE,
 
   data <- select(data, !!!caes)
   
+  # split by group to create one serie per group
   if(!is.null(caes$group))
     data <- group_split(data, group)
   else
@@ -203,7 +204,7 @@ generate_serie <- function(c, data, label, inherit_caes, type = "line", ..., val
     axis = "x"
   )
 
-  # execption for category and time
+  # exeption for category and time
   if(!is.null(c$x$opts$options$scales$xAxis[[1]]$type))
     if(c$x$opts$options$scales$xAxis[[1]]$type %in% c("category", "time"))
       valid_caes <- "y"
