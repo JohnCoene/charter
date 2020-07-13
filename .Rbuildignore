@@ -2,3 +2,5 @@
 ^\.vscode$
 dev
 ^test\.R$
+^\.travis\.yml$
+^\.github$
