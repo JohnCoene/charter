@@ -1,14 +1,16 @@
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.com/JohnCoene/charter.svg?branch=master)](https://travis-ci.com/JohnCoene/charter)
-[![R build status](https://github.com/JohnCoene/charter/workflows/R-CMD-check/badge.svg)](https://github.com/JohnCoene/charter/actions)
-<!-- badges: end -->
-
 <div style="text-align:center;" align="center">
 
 # charter
 
 Chart.js for R
+
 🚧 Under construction | Help wanted
+
+<!-- badges: start -->
+[![Travis build status](https://travis-ci.com/JohnCoene/charter.svg?branch=master)](https://travis-ci.com/JohnCoene/charter)
+[![R build status](https://github.com/JohnCoene/charter/workflows/R-CMD-check/badge.svg)](https://github.com/JohnCoene/charter/actions)
+<!-- badges: end -->
+
 
 </div>
 
