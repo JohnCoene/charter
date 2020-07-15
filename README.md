@@ -36,7 +36,7 @@ data(penguins, package = 'palmerpenguins')
 
 chart(data = penguins, caes(flipper_length_mm, body_mass_g)) %>% 
   c_scatter(caes(color = species, group = species)) %>% 
-  c_colors( c("darkorange","darkorchid","darkcyan"))
+  c_colors(c("darkorange","darkorchid","darkcyan"))
 ```
 
 ![](inst/example.png)
