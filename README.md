@@ -2,15 +2,14 @@
 
 # charter
 
-Chart.js for R
+![](https://www.chartjs.org/img/chartjs-logo.svg)
 
-🚧 Under construction | Help wanted
+Chart.js for R
 
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.com/JohnCoene/charter.svg?branch=master)](https://travis-ci.com/JohnCoene/charter)
 [![R build status](https://github.com/JohnCoene/charter/workflows/R-CMD-check/badge.svg)](https://github.com/JohnCoene/charter/actions)
 <!-- badges: end -->
-
 
 </div>
 
