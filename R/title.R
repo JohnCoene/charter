@@ -38,7 +38,7 @@ c_title.charter <- function(c, title = "", position = c("top", "left", "bottom",
   position <- match.arg(position)
 
   opts <- list(
-    title = title, 
+    text = title, 
     position = position,
     fontSize = font_size, 
     fontFamily = font_family,
